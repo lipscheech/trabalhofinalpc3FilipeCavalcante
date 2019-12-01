@@ -1,27 +1,54 @@
 package br.com.prog3.trabalhofinal.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "produto")
 public class Produto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String nome, descricao, imagem, garantia, fabricante;
-	private Double precoCompra, precoVenda, desconto;
 	
-	public Produto(Long id, String nome, String descricao, String imagem, String garantia, String fabricante,
+	@Column(name = "nome")
+	private String nome;
+	
+	@Column(name = "descricao")
+	private String descricao;
+	
+	@Column(name = "imagem")
+	private String imagem;
+	
+	@Column(name = "garantia")
+	private String garantia;
+	
+	@Column(name = "fabricante")
+	private String fabricante;
+	
+	@Column(name = "precoCompra")
+	private Double precoCompra;
+	
+	@Column(name = "precoVenda")
+	private Double precoVenda;
+	
+	@Column(name = "desconto")
+	private Double desconto;
+	
+	
+	
+	public Produto() {
+		
+	}
+
+	public Produto(String nome, String descricao, String fabricante,
 			Double precoCompra, Double precoVenda, Double desconto) {
-		super();
-		this.id = id;
 		this.nome = nome;
-		this.descricao = descricao;
-		this.imagem = imagem;
-		this.garantia = garantia;
+		this.descricao = descricao;;
 		this.fabricante = fabricante;
 		this.precoCompra = precoCompra;
 		this.precoVenda = precoVenda;

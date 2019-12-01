@@ -1,9 +1,13 @@
 package br.com.prog3.trabalhofinal.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,47 +20,30 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.prog3.trabalhofinal.domain.Produto;
 import br.com.prog3.trabalhofinal.service.ProdutoService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/api")
 public class ProdutoResource{
 
 	@Autowired
 	private ProdutoService produtoService;
-
-	@PostMapping
-	public Produto save(@RequestBody Produto curso) {
-		return produtoService.save(curso);
+	
+	@GetMapping("/produtos")
+	public List<Produto> getAllProdutos(){
+		List<Produto> produto = new ArrayList<>();
+		produtoService.findAll().forEach(produto::add);
+		return produto;
 	}
 
-	@GetMapping
-	public List<Produto> findAll() {
-		return produtoService.findAll();
+	@PostMapping("/produto")
+	public Produto postProduto(@RequestBody Produto produto) {
+		Produto _produto = produtoService.save(new Produto(produto.getNome(), produto.getDescricao(), produto.getFabricante(), produto.getPrecoCompra(), produto.getPrecoVenda(), produto.getDesconto()));
+		return _produto;
 	}
-
-	@GetMapping(path = { "/{id}" })
-	public Optional<Produto> findById(@PathVariable("id") Long id) {
-		return produtoService.findById(id);
-	}
-
-	@PutMapping(value = "/{id}")
-	public Produto update(@PathVariable("id") Long id, @RequestBody Produto produto) {
-		Optional<Produto> optional = produtoService.findById(id);
-		if (optional.isPresent()) {
-			Produto p = optional.get();
-			p.setDesconto(produto.getDesconto());
-			p.setNome(produto.getNome());
-			p.setPrecoCompra(produto.getPrecoCompra());
-			p.setPrecoVenda(produto.getPrecoVenda());
-			produtoService.update(p);
-			return p;
-		} else {
-			throw new RuntimeException("Não foi possível alterar registro");
-		}
-	}
-
-	@DeleteMapping(path = { "/{id}" })
-	public void delete(@PathVariable("id") Long id) {
+	
+	@DeleteMapping("/produto/{id}")
+	public ResponseEntity<String> deleteCliente(@PathVariable("id") long id){
 		produtoService.deleteById(id);
+		return new ResponseEntity<>("Produto deletado !", HttpStatus.OK);
 	}
-
 }

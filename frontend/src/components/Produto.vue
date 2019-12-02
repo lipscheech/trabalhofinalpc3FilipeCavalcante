@@ -42,21 +42,21 @@ export default {
             };
             http.put("/produto/"+this.produto.id, data).then(response => {
                 this.produto.ativo = response.data.ativo;
-                console.log(response.data);
+                //console.log(response.data);
             })
-            .catch(e => {
-                console.log(e);
-            });
+            /*.catch(e => {
+                //console.log(e);
+            });*/
         },
         deleteProduto(){
-            http.delete("/cliente/"+ this.produto.id).then(response => {
-                console.log(response.data);
+            http.delete("/cliente/"+ this.produto.id).then(() => {
+                //console.log(response.data);
                 this.$emit("refreshData");
                 this.$router.push('/');
             })
-            .catch(e => {
-                console.log(e);
-            });
+            /*.catch(e => {
+                //console.log(e);
+            });*/
         }
     }    
 }

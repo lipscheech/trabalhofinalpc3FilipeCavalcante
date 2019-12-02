@@ -30,11 +30,11 @@ export default {
         pesquisarProdutos(){
             http.get("/produtos/fabricante/"+ this.fabricante).then(response => {
                 this.produtos = response.data;
-                console.log(response.data);
+                //console.log(response.data);
             })
-            .catch(e => {
-                console.log(e);
-            });
+            /*.catch(e => {
+                //console.log(e);
+            });*/
         }
     }
 };

@@ -49,11 +49,11 @@ export default {
             };
             http.post("/produto", data).then(response => {
                 this.produto.id = response.data.id;
-                console.log(response.data);
+                //console.log(response.data);
             })
-            .catch(e => {
-                console.log(e);
-            });
+            /*.catch(e => {
+                //console.log(e);
+            });*/
 
             this.submitted = true;
         },

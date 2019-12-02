@@ -29,11 +29,11 @@ export default {
             .get("/produtos")
             .then(response => {
                 this.produtos = response.data; // JSON are parsed automatically.
-                console.log(response.data);
+                //console.log(response.data);
             })
-            .catch(e => {
-                console.log(e);
-            });
+            /*.catch(e => {
+                //console.log(e);
+            });*/
         },
         refreshList() {
             this.recuperaProdutos();
